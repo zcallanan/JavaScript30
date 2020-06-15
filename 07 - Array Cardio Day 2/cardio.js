@@ -23,15 +23,22 @@
       const age = (Math.round((now - birth) / (60000 * 60 * 24 * 30 * 12)));
       return age
     });
-    const some = result.some(item => item >= 19 );
-    console.log (some);
+    const some = result.some(age => age >= 19 );
+    console.log(some);
 
     // Array.prototype.every() // is everyone 19 or older?
+    const every = result.every(age => age >= 19);
+    console.log(every);
 
     // Array.prototype.find()
     // Find is like filter, but instead returns just the one you are looking for
     // find the comment with the ID of 823423
+    const item = comments.find(comment => comment.id === 823423);
+    console.log(item);
 
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
+    const index = comments.findIndex(comment => comment.id === 823423);
+    comments.splice(index, 1);
+    console.log(comments);
