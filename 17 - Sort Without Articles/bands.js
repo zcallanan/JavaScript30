@@ -5,38 +5,13 @@ const unorderedList = document.getElementById('bands');
 
 // sort bands sans 'The', 'A', or 'An'
 const process = (string) => {
-  const stringArray = string.split(' ');
-  if (stringArray[0] === 'The' || stringArray[0] === 'A' || stringArray[0] === 'An') {
-    stringArray.shift()
-    return stringArray.join(' ');
-  } else {
-    return string;
-  }
+  return string.replace(/^(a |the |an )/i, '').trim()
 }
 
-// generate an object with processed array
-const mapped = bands.map(function(string, i) {
-  return { index: i, value: process(string) };
-})
-
-// sort the object
-mapped.sort(function(a, b) {
-  if (a.value > b.value) {
-    return 1;
-  }
-  if (a.value < b.value) {
-    return -1;
-  }
-  return 0;
-});
-
-// create a new array using the sort order of indexes in the object
-const result = mapped.map(function(value){
-  return bands[value.index];
-});
+const sortedBands = bands.sort((a,b) => process(a) > process(b) ? 1 : -1);
 
 // build HTML string
-result.forEach(string => {
+sortedBands.forEach(string => {
   html = `${html} <li>${string}</li>`
 })
 
