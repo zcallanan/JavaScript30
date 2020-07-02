@@ -1,20 +1,17 @@
-const timeNodes = document.querySelectorAll('[data-time]');
+const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
 
-//const seconds = timeNodes.map(node => node.dataset.time)
+const seconds = timeNodes
+  .map(node => node.dataset.time)
+  .map(timeCode => {
+    const [mins, secs] = timeCode.split(':').map(parseFloat);
+    return (mins * 60) + secs;
+  }).reduce((total, s) => total + s, 0);
 
-const toNumber = (time) => {
-  var hoursMinutes = time.split(/[.:]/);
-  var hours = parseInt(hoursMinutes[0], 10);
-  var minutes = hoursMinutes[1] ? parseInt(hoursMinutes[1], 10) : 0;
-  return (hours + minutes / 60).toFixed(2);
-}
+let secondsLeft = seconds;
+const hours = Math.floor(secondsLeft / 3600);
+secondsLeft = secondsLeft % 3600;
 
-const array = []
+const mins = Math.floor(secondsLeft / 60);
+secondsLeft = secondsLeft % 60;
 
-timeNodes.forEach(node => {
-  array.push(toNumber(node.dataset.time));
-})
-
-const total = array.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue, 10), 0);
-
-console.log(total);
+console.log(hours, mins, secondsLeft);
