@@ -16,7 +16,6 @@ const eventCapture = (e) => {
     const walk = (x - startX) * 3;
     slider.scrollLeft = scrollLeft - walk
   }
-
 };
 
 const eventEnds = () => {
